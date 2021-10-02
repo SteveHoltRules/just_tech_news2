@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
+  //use findOne as the test for the calendar
   User.findOne({
     attributes: { exclude: ['password'] },
     where: {
