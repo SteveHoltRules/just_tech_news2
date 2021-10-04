@@ -5,11 +5,13 @@ const { Post, User, Comment, Vote } = require("../models");
 // get all posts for homepage
 router.get("/", (req, res) => {
   Post.findAll({
+    //These attributes are plugged into the handlebars. 
     attributes: [
       "id",
       "post_url",
       "title",
       "created_at",
+      //This is a sql statement that pulls a response and then names it as a vote count
       [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
      ],
     include: [
@@ -37,6 +39,10 @@ router.get("/", (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
+});
+
+router.get("/login", (req, res) => {
+  res.render("login");
 });
 
 module.exports = router;
